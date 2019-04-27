@@ -10,8 +10,11 @@ public class PlayerControl : MonoBehaviour
     private Animator playerAnim;
     private float goXScale;
 
-    public bool canJump = true;
-    public bool isGrounded; 
+    public bool canJump;
+    public bool isGrounded;
+
+    public bool inNeutralZone = false;
+
 
     void Start()
     {
@@ -24,6 +27,7 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         HandleMovement();
+        HandleActions();
     }
 
     void HandleMovement()
@@ -53,15 +57,37 @@ public class PlayerControl : MonoBehaviour
             }
 
             //jumping
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (canJump == true)
             {
-                playerRB.AddForce(new Vector2(moveDir.x * 150, 2 * 120));
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    playerRB.AddForce(new Vector2(moveDir.x * 200, 2 * 150));
+                }
             }
+            
 
         }
 
 
     }
+
+    void HandleActions()
+    {
+        if (inNeutralZone == true)
+        {
+          // handled by shop... 
+        }
+        else
+        {
+            //Abilities.... 
+        }
+    }
+
+    public void ChangeZones()
+    {
+        //particle effect when he enters the shop. 
+    }
+   
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
